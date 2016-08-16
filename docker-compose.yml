@@ -1,10 +1,16 @@
 version: '2'
 services:
   db:
-    image: postgres
+    image: 'postgres:9.5.4'
+    environment:
+      POSTGRES_USER: dockerstack
+      POSTGRES_PASSWORD: dockerstack
+    #volumes:
+    #  - ./db/setup.sql:/docker-entrypoint-initdb.d/setup.sql
   api:
     build: ./api
     command: bundle exec rackup -o 0.0.0.0 -p 3000 config.ru
+    #command: 'bundle exec rake db:migrate && bundle exec rackup -o 0.0.0.0 -p 3000 config.ru'
     volumes:
       - ./api:/dockerstack/api
     ports:
