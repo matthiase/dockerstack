@@ -1,0 +1,23 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  api:
+    build: ./api
+    command: bundle exec rackup -o 0.0.0.0 -p 3000 config.ru
+    volumes:
+      - ./api:/dockerstack/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  web:
+    build: web
+    command: npm start
+    volumes:
+      - ./web:/dockerstack/web
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api
+
