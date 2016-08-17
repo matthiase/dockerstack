@@ -1,0 +1,12 @@
+development: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: postgres
+  password: develop
+  host: db
+  database: dockerstack_development
+
+test:
+  <<: *default
+  database: dockerstack_test
