@@ -2,6 +2,8 @@ version: '2'
 services:
   db:
     image: postgres
+    volumes:
+      - ./api/db/setup.sql:/docker-entrypoint-initdb.d/001-setup-dockerstack-api.sql
     environment:
       POSTGRES_PASSWORD: develop
   api:
